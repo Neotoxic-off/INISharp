@@ -46,6 +46,7 @@ namespace Models
             {
                 { Kinds.Kind.Property, ExtractKeyProperty },
                 { Kinds.Kind.Section, ExtractKeySection },
+                { Kinds.Kind.Empty, ExtractKeyEmpty },
                 { Kinds.Kind.Comment, ExtractKeyComment }
             };
 
@@ -58,10 +59,21 @@ namespace Models
             {
                 { Kinds.Kind.Property, ExtractValueProperty },
                 { Kinds.Kind.Section, ExtractValueSection },
+                { Kinds.Kind.Empty, ExtractValueEmpty },
                 { Kinds.Kind.Comment, ExtractValueComment }
             };
 
             return (Bind[Kind]());
+        }
+
+        private string? ExtractKeyEmpty()
+        {
+            return (null);
+        }
+
+        private string? ExtractValueEmpty()
+        {
+            return (null);
         }
 
         private string? ExtractKeyProperty()
@@ -81,7 +93,7 @@ namespace Models
 
         private string? ExtractValueSection()
         {
-            return (Line?.Remove(0).Remove(Line.Length - 1));
+            return (Line?[1..^1]);
         }
 
         private string? ExtractKeyComment()
